@@ -26,19 +26,19 @@ On an IPv6-only LAN there is no DHCPv4, so IPv4-only devices cannot connect.
 
 ## Path to IPv6-only
 
-1. **PLAT on the CPE** (this test). The WAN is still dual stack. The LAN moves to IPv6-mostly.
-2. **The ISP deploys a PLAT** and withdraws native IPv4 from the access link. The CPE stops its own PLAT and passes the ISP's PREF64 to the LAN ([C4, C7](requirements.md#clat)). It runs CLAT for the IPv4-only devices ([C1, C2](requirements.md#clat)). This stage assumes no native IPv4 on the WAN, because a CLAT turns off when native IPv4 appears ([N2](requirements.md#clat-node-behaviour)).
-3. **IPv6-only access and LAN.** IPv4 is a service delivered by the ISP's PLAT and the CPE's CLAT.
+1. PLAT on the CPE (this test). The WAN is still dual stack. The LAN moves to IPv6-mostly.
+2. The ISP deploys a PLAT and withdraws native IPv4 from the access link. The CPE stops its own PLAT and passes the ISP's PREF64 to the LAN ([C4, C7](requirements.md#clat)). It runs CLAT for the IPv4-only devices ([C1, C2](requirements.md#clat)). This stage assumes no native IPv4 on the WAN, because a CLAT turns off when native IPv4 appears ([N2](requirements.md#clat-node-behaviour)).
+3. IPv6-only access and LAN, with IPv4 delivered as a service by the ISP's PLAT and the CPE's CLAT.
 
-Each stage uses a different part of the same software on the same CPE. That is why the request covers CLAT and PLAT together.
+Each stage uses a different part of the same software on the same CPE, so the request covers CLAT and PLAT together.
 
 ## What to measure
 
 I measure with NetFlow from the MikroTik into Akvorado, as described in [Setting Up Akvorado](https://medium.com/@terrysweetser_90287/setting-up-akvorado-a-netflow-analyser-for-your-ipv6-first-network-608882bc8445). Akvorado splits traffic by EType, which separates IPv4 (0x800) from IPv6 (0x86DD).
 
-- **LAN side:** the share of bytes that is IPv6. With hosts using their own CLAT, this should approach 100% except for the IPv4-only devices.
-- **WAN side, filtered to `InIfBoundary = external`:** the IPv6 share of all Internet traffic, compared with the baseline above.
-- **Hosts:** whether hosts that support option 108 drop their IPv4 address and still reach IPv4-only sites.
-- **IPv4-only devices:** whether they still work through NAT44 on the IPv6-mostly LAN.
+- On the LAN, the share of bytes that is IPv6. With hosts using their own CLAT, this should approach 100% apart from the IPv4-only devices.
+- On the WAN, filtered to `InIfBoundary = external`, the IPv6 share of all Internet traffic, compared with the baseline above.
+- Whether hosts that support option 108 drop their IPv4 address and still reach IPv4-only sites.
+- Whether IPv4-only devices still work through NAT44 on the IPv6-mostly LAN.
 
 The [Project IPv6-First case study](https://medium.com/@terrysweetser_90287/project-ipv6-first-a-case-study-in-achieving-an-80-native-ipv6-soho-network-34cb2912923d) describes the method I used to find and remove IPv4 traffic before this stage.

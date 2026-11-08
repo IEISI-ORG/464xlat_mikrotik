@@ -9,12 +9,12 @@ On these networks, a MikroTik router gets an IPv6-only connection. Phones and re
 | T-Mobile US (mobile) | IPv6-only with 464XLAT since 2014 | [Internet Society case study, 2014](https://www.internetsociety.org/deploy360/2014/case-study-t-mobile-us-goes-ipv6-only-using-464xlat/) |
 | Telstra (mobile, Australia) | IPv6-only with 464XLAT, DNS64 and NAT64 since February 2020 | [SIDN, 2020](https://www.sidn.nl/en/news-and-blogs/australias-telstra-switches-mobile-users-to-ipv6-only) |
 | Deutsche Telekom (mobile, Germany) | 5G standalone requires the IPv6-only APN, with DNS64 and NAT64 in the network | [Forum post 24, Jan 2026](https://forum.mikrotik.com/t/feature-request-464xlat/263487/24) |
-| EE (mobile, UK) | A staff post: "Our mobile network uses IPv6, and 464XLAT for IPv4 traffic" | [EE Community](https://community.ee.co.uk/t5/Mobile-Broadband/IPv6-on-EE-Mobile-not-landline/td-p/1361112) |
+| EE (mobile, UK) | EE's community manager: "Our mobile network uses IPv6, and 464XLAT for IPv4 traffic" | [EE Community](https://community.ee.co.uk/t5/Mobile-Broadband/IPv6-on-EE-Mobile-not-landline/td-p/1361112) |
 
 Reports from MikroTik users on these networks:
 
-- **Chateau 5G R17 on T-Mobile US:** no IPv4 for an average user. The owner gets by with an L2TP VPN ([post 32](https://forum.mikrotik.com/t/feature-request-464xlat/263487/32), [post 39](https://forum.mikrotik.com/t/feature-request-464xlat/263487/39)).
-- **Chateau 5G R17 ax on Deutsche Telekom 5G SA:** IPv4 devices behind it get no IPv4. The owner tunnels IPv4 over WireGuard to a rented server ([post 24](https://forum.mikrotik.com/t/feature-request-464xlat/263487/24)).
+- A Chateau 5G R17 on T-Mobile US gives no IPv4 to an average user. Its owner gets by with an L2TP VPN ([post 32](https://forum.mikrotik.com/t/feature-request-464xlat/263487/32), [post 39](https://forum.mikrotik.com/t/feature-request-464xlat/263487/39)).
+- Behind a Chateau 5G R17 ax on Deutsche Telekom 5G SA, IPv4-only devices get no IPv4. Its owner tunnels IPv4 over WireGuard to a rented server ([post 24](https://forum.mikrotik.com/t/feature-request-464xlat/263487/24)).
 
 ## MikroTik hardware and the container workaround
 

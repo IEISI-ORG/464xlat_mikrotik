@@ -36,6 +36,8 @@ Requests for IPv4 and IPv6 translation in RouterOS go back to 2010. This timelin
 
 ## Status on 8 November 2026
 
-- **RouterOS:** 7.25.1 is the stable release ([changelog](https://upgrade.mikrotik.com/routeros/7.25.1/CHANGELOG)). It has no CLAT, PLAT or DNS64. See [requirements](requirements.md).
-- **IETF:** [draft-ietf-v6ops-claton](https://datatracker.ietf.org/doc/draft-ietf-v6ops-claton/) is approved by the IESG and in the RFC Editor queue. It makes RFC 8781 PREF64 a MUST for CE routers that support 464XLAT.
-- **MikroTik:** MikroTik staff have not posted in thread 263487.
+RouterOS 7.25.1 is the stable release ([changelog](https://upgrade.mikrotik.com/routeros/7.25.1/CHANGELOG)). It has no CLAT, PLAT or DNS64; see [requirements](requirements.md).
+
+[draft-ietf-v6ops-claton](https://datatracker.ietf.org/doc/draft-ietf-v6ops-claton/) is approved by the IESG and in the RFC Editor queue. It makes RFC 8781 PREF64 a MUST for CE routers that support 464XLAT.
+
+MikroTik staff have not posted in thread 263487.

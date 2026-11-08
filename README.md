@@ -6,10 +6,13 @@ This repository holds the case: the standards, what RouterOS has today, who is a
 
 ## Why now
 
-- **The IETF has approved it.** [draft-ietf-v6ops-claton](https://datatracker.ietf.org/doc/draft-ietf-v6ops-claton/) is approved by the IESG and in the RFC Editor queue, as of 8 November 2026. It updates RFC 8585 so that a CE router supporting 464XLAT MUST learn the NAT64 prefix from PREF64 in Router Advertisements ([RFC 8781](https://www.rfc-editor.org/rfc/rfc8781.html)).
-- **RouterOS already has the edges.** It sends PREF64 (7.8) and handles DHCP option 108 (7.25). It cannot translate between IPv4 and IPv6. See the [requirements table](docs/requirements.md).
-- **The clients are ready.** Windows 11 made CLAT generally available in October 2026 ([Redmond Magazine](https://redmondmag.com/blogs/redmond-dispatch/2026/10/microsoft-makes-windows-clat-generally-available.aspx)), joining the phones and laptops that already had it. A router that sends PREF64 and option 108 lets those hosts drop IPv4. Devices that only speak IPv4 still need a CLAT on the router.
-- **Large networks already run IPv6-only.** T-Mobile US, Telstra mobile, Deutsche Telekom 5G SA and EE deliver IPv4 through 464XLAT. MikroTik LTE and 5G routers on those networks give no IPv4 to the devices behind them ([who is affected](docs/who-is-affected.md)).
+[draft-ietf-v6ops-claton](https://datatracker.ietf.org/doc/draft-ietf-v6ops-claton/) is approved by the IESG and in the RFC Editor queue, as of 8 November 2026. It updates RFC 8585 so that a CE router supporting 464XLAT MUST learn the NAT64 prefix from PREF64 in Router Advertisements ([RFC 8781](https://www.rfc-editor.org/rfc/rfc8781.html)).
+
+RouterOS already sends PREF64 (7.8) and handles DHCP option 108 (7.25), but it cannot translate between IPv4 and IPv6. The [requirements table](docs/requirements.md) lists each piece.
+
+Windows 11 made CLAT generally available in October 2026 ([Redmond Magazine](https://redmondmag.com/blogs/redmond-dispatch/2026/10/microsoft-makes-windows-clat-generally-available.aspx)). A router that sends PREF64 and option 108 lets hosts with their own CLAT, such as Windows 11, drop IPv4. Devices that only speak IPv4 still need a CLAT on the router.
+
+T-Mobile US, Telstra mobile, Deutsche Telekom 5G SA and EE already run IPv6-only and deliver IPv4 through 464XLAT. MikroTik LTE and 5G routers on those networks give no IPv4 to the devices behind them ([who is affected](docs/who-is-affected.md)).
 
 ## My network
 
