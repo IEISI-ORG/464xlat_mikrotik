@@ -1,48 +1,30 @@
 # 464XLAT for MikroTik RouterOS
 
-I am asking MikroTik to build 464XLAT into RouterOS: a CLAT (customer-side translator) and a PLAT (stateful NAT64), with DNS64 as an option. RouterOS is one operating system from the hEX to the CCR, so the same software serves CPEs and the high-end routers that would run the PLAT.
+I am asking MikroTik to add two features to RouterOS. They have different users and different costs.
 
-This repository holds the case: the standards, what RouterOS has today, who is affected, and how to test it. It contains no code.
+## 1. A CLAT on CPEs
 
-## Why now
+Behind an IPv6-only WAN, IPv4-only devices get no IPv4 unless the router translates for them, and RouterOS cannot. T-Mobile US, Telstra mobile, Deutsche Telekom 5G SA and EE run IPv6-only with 464XLAT today, and Chateau owners on T-Mobile US and Deutsche Telekom networks report the problem ([who is affected](docs/who-is-affected.md)). Containers do not run on MIPS or TILE models.
 
-[draft-ietf-v6ops-claton](https://datatracker.ietf.org/doc/draft-ietf-v6ops-claton/) is approved by the IESG and in the RFC Editor queue, as of 8 November 2026. It updates RFC 8585 so that a CE router supporting 464XLAT MUST learn the NAT64 prefix from PREF64 in Router Advertisements ([RFC 8781](https://www.rfc-editor.org/rfc/rfc8781.html)).
+[RFC 8585](https://www.rfc-editor.org/rfc/rfc8585.html#section-3.2.1) says a CE router for the retail market MUST support CLAT. [draft-ietf-v6ops-claton](https://datatracker.ietf.org/doc/draft-ietf-v6ops-claton/), in the RFC Editor queue on 8 November 2026, specifies how a CLAT behaves.
 
-RouterOS already sends PREF64 (7.8) and handles DHCP option 108 (7.25), but it cannot translate between IPv4 and IPv6. The [requirements table](docs/requirements.md) lists each piece.
+## 2. A PLAT (stateful NAT64)
 
-Windows 11 made CLAT generally available in October 2026 ([Redmond Magazine](https://redmondmag.com/blogs/redmond-dispatch/2026/10/microsoft-makes-windows-clat-generally-available.aspx)). On a network with a PLAT, a router that sends PREF64 and option 108 lets hosts with their own CLAT, such as Windows 11, drop IPv4. Devices that only speak IPv4 still need a CLAT on the router.
+A PLAT is the bigger job: it keeps state, and at ISP scale it is a CGNAT. An ISP with a CCR or CHR at the edge has to buy other equipment to go IPv6-only without one. On a CPE with a public IPv4 address, the same feature serves one LAN and lets anyone run IPv6-mostly before their ISP deploys a PLAT ([test scenario](docs/test-scenario.md)).
 
-T-Mobile US, Telstra mobile, Deutsche Telekom 5G SA and EE already run IPv6-only and deliver IPv4 through 464XLAT. Users report that a Chateau 5G R17 on a T-Mobile US network and a Chateau 5G R17 ax on Deutsche Telekom 5G SA give no IPv4 to the devices behind them ([who is affected](docs/who-is-affected.md)).
+RouterOS already tells hosts about a PLAT, with PREF64 since 7.8 and DHCP option 108 since 7.25, but it has no PLAT to point them at. Hosts with their own CLAT, including [Windows 11 since October 2026](https://redmondmag.com/blogs/redmond-dispatch/2026/10/microsoft-makes-windows-clat-generally-available.aspx), can then drop IPv4.
+
+DNS64 is optional. Where it is used, DNSSEC validation has to run upstream of it.
 
 ## My network
 
-My home office runs dual stack on a MikroTik gateway. I measure it with NetFlow and Akvorado. About 80% of traffic is native IPv6 on average, up from 67%, with peaks beyond 90%. The IPv4 that remains is "four cameras and a caching proxy" (the proxy is my ISP's). Excluding that floor, the ratio holds above 90%. Only a CLAT on the router can move that traffic, and RouterOS does not have one.
-
-- [Project IPv6-First: a case study in achieving an 80% native IPv6 SOHO network](https://medium.com/@terrysweetser_90287/project-ipv6-first-a-case-study-in-achieving-an-80-native-ipv6-soho-network-34cb2912923d)
-- [Setting Up Akvorado: a NetFlow analyser for your IPv6-first network](https://medium.com/@terrysweetser_90287/setting-up-akvorado-a-netflow-analyser-for-your-ipv6-first-network-608882bc8445)
-- [Setting Up Akvorado, Six Months On](https://medium.com/@terrysweetser_90287/setting-up-akvorado-six-months-on-4565b46dfc84) (source of the figures above)
-
-## A live example
-
-As of 8 November 2026, github.com publishes no AAAA record. A host on an IPv6-only network cannot open this page unless its network provides NAT64, or the host has a CLAT and the network a PLAT.
-
-## Contents
-
-| Document | What it covers |
-|---|---|
-| [Requirements](docs/requirements.md) | Each MUST and SHOULD from RFC 8585, the claton draft, RFC 6146 and RFC 6147, with RouterOS 7.25.1 status and sources |
-| [Test scenario](docs/test-scenario.md) | The test I recommend until ISPs deploy PLAT: PLAT on the CPE, IPv6-mostly LAN |
-| [Who is affected](docs/who-is-affected.md) | IPv6-only networks, and which MikroTik models can or cannot run a container |
-| [Objections](docs/objections.md) | Dual stack, customer-side translation, containers, scale, PLAT on RouterOS, DNS64, IPv4 prices |
-| [Acceptance criteria](docs/acceptance.md) | What a user should be able to observe once 464XLAT ships |
-| [History](docs/history.md) | Requests and MikroTik statements from 2010 to 2026 |
-| [Ticket template](TICKET-TEMPLATE.md) | Text to paste into a MikroTik support ticket |
+My home office runs dual stack on a MikroTik gateway, as a stage on the way to IPv6-only. About 80% of traffic is native IPv6 on average, up from 67%, with peaks beyond 90%. The rest is "four cameras and a caching proxy" (the proxy is my ISP's), and excluding that floor the ratio holds above 90%. Only a CLAT on the router can move that traffic. Sources: [Six Months On](https://medium.com/@terrysweetser_90287/setting-up-akvorado-six-months-on-4565b46dfc84), [case study](https://medium.com/@terrysweetser_90287/project-ipv6-first-a-case-study-in-achieving-an-80-native-ipv6-soho-network-34cb2912923d), [Akvorado setup](https://medium.com/@terrysweetser_90287/setting-up-akvorado-a-netflow-analyser-for-your-ipv6-first-network-608882bc8445).
 
 ## How to help
 
-Open a support ticket with MikroTik using the [ticket template](TICKET-TEMPLATE.md), and describe your own network. Discussion is in the forum thread [Feature Request: 464XLAT](https://forum.mikrotik.com/t/feature-request-464xlat/263487).
+Open a support ticket using the [ticket template](TICKET-TEMPLATE.md) and describe your network. Discussion is in the [forum thread](https://forum.mikrotik.com/t/feature-request-464xlat/263487). Corrections are welcome as GitHub issues, with a source.
 
-Corrections are welcome as GitHub issues or pull requests. Please include a source.
+Reference: [requirements](docs/requirements.md), [objections](docs/objections.md), [acceptance criteria](docs/acceptance.md), [history](docs/history.md).
 
 ## Credits and licence
 
