@@ -51,7 +51,7 @@ These rules apply to any node running CLAT, including a router. Sections are fro
 
 ## PLAT
 
-The PLAT is stateful NAT64. It is needed at the provider and, for the [recommended test scenario](test-scenario.md), on the CPE itself. RouterOS uses the same software on both.
+The PLAT is stateful NAT64. It is needed at the provider and, for the [recommended test scenario](test-scenario.md), on the CPE itself.
 
 | ID | Requirement | Source | RouterOS 7.25.1 | Evidence |
 |---|---|---|---|---|

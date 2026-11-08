@@ -20,7 +20,7 @@ Reports from MikroTik users on these networks:
 
 The only way to run a CLAT on RouterOS today is a third-party container, such as [antongrizli/tayga](https://github.com/antongrizli/tayga). The [Container page](https://help.mikrotik.com/docs/display/ROS/Container) says the container package "is compatible with arm, arm64 and x86 architectures". Turning it on needs a device-mode change, confirmed by pressing the reset button. The page recommends an external disk.
 
-MIPS and TILE devices cannot run containers at all. A native CLAT in RouterOS would reach them, because RouterOS is one operating system across the range.
+MIPS and TILE devices cannot run containers at all. A native CLAT in RouterOS would reach them.
 
 Architecture and CPU are from each product page on mikrotik.com, read on 8 November 2026.
 
