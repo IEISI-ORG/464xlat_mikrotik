@@ -10,13 +10,13 @@ This repository holds the case: the standards, what RouterOS has today, who is a
 
 RouterOS already sends PREF64 (7.8) and handles DHCP option 108 (7.25), but it cannot translate between IPv4 and IPv6. The [requirements table](docs/requirements.md) lists each piece.
 
-Windows 11 made CLAT generally available in October 2026 ([Redmond Magazine](https://redmondmag.com/blogs/redmond-dispatch/2026/10/microsoft-makes-windows-clat-generally-available.aspx)). A router that sends PREF64 and option 108 lets hosts with their own CLAT, such as Windows 11, drop IPv4. Devices that only speak IPv4 still need a CLAT on the router.
+Windows 11 made CLAT generally available in October 2026 ([Redmond Magazine](https://redmondmag.com/blogs/redmond-dispatch/2026/10/microsoft-makes-windows-clat-generally-available.aspx)). On a network with a PLAT, a router that sends PREF64 and option 108 lets hosts with their own CLAT, such as Windows 11, drop IPv4. Devices that only speak IPv4 still need a CLAT on the router.
 
-T-Mobile US, Telstra mobile, Deutsche Telekom 5G SA and EE already run IPv6-only and deliver IPv4 through 464XLAT. MikroTik LTE and 5G routers on those networks give no IPv4 to the devices behind them ([who is affected](docs/who-is-affected.md)).
+T-Mobile US, Telstra mobile, Deutsche Telekom 5G SA and EE already run IPv6-only and deliver IPv4 through 464XLAT. Users report that a Chateau 5G R17 on a T-Mobile US network and a Chateau 5G R17 ax on Deutsche Telekom 5G SA give no IPv4 to the devices behind them ([who is affected](docs/who-is-affected.md)).
 
 ## My network
 
-My home office runs dual stack on a MikroTik gateway. I measure it with NetFlow and Akvorado. About 80% of traffic is native IPv6 on average, up from 67%, with peaks beyond 90%. Once the IPv4-only devices are excluded, it is above 90%. The IPv4 that remains is "four cameras and a caching proxy". Only a CLAT on the router can move that traffic, and RouterOS does not have one.
+My home office runs dual stack on a MikroTik gateway. I measure it with NetFlow and Akvorado. About 80% of traffic is native IPv6 on average, up from 67%, with peaks beyond 90%. The IPv4 that remains is "four cameras and a caching proxy" (the proxy is my ISP's). Excluding that floor, the ratio holds above 90%. Only a CLAT on the router can move that traffic, and RouterOS does not have one.
 
 - [Project IPv6-First: a case study in achieving an 80% native IPv6 SOHO network](https://medium.com/@terrysweetser_90287/project-ipv6-first-a-case-study-in-achieving-an-80-native-ipv6-soho-network-34cb2912923d)
 - [Setting Up Akvorado: a NetFlow analyser for your IPv6-first network](https://medium.com/@terrysweetser_90287/setting-up-akvorado-a-netflow-analyser-for-your-ipv6-first-network-608882bc8445)
@@ -33,7 +33,7 @@ As of 8 November 2026, github.com publishes no AAAA record. A host on an IPv6-on
 | [Requirements](docs/requirements.md) | Each MUST and SHOULD from RFC 8585, the claton draft, RFC 6146 and RFC 6147, with RouterOS 7.25.1 status and sources |
 | [Test scenario](docs/test-scenario.md) | The test I recommend until ISPs deploy PLAT: PLAT on the CPE, IPv6-mostly LAN |
 | [Who is affected](docs/who-is-affected.md) | IPv6-only networks, and which MikroTik models can or cannot run a container |
-| [Objections](docs/objections.md) | Dual stack, customer-side translation, containers, scale, DNS64, IPv4 prices |
+| [Objections](docs/objections.md) | Dual stack, customer-side translation, containers, scale, PLAT on RouterOS, DNS64, IPv4 prices |
 | [Acceptance criteria](docs/acceptance.md) | What a user should be able to observe once 464XLAT ships |
 | [History](docs/history.md) | Requests and MikroTik statements from 2010 to 2026 |
 | [Ticket template](TICKET-TEMPLATE.md) | Text to paste into a MikroTik support ticket |

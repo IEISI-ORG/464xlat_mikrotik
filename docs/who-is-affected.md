@@ -2,7 +2,7 @@
 
 ## Networks that already run IPv6-only with 464XLAT
 
-On these networks, a MikroTik router gets an IPv6-only connection. Phones and recent laptops bring their own CLAT. Devices behind the router that only speak IPv4 get nothing, because RouterOS has no CLAT ([requirements C1](requirements.md#clat)).
+On these networks, a MikroTik router can end up with an IPv6-only connection, depending on the APN and the modem. Hosts behind it that have their own CLAT can still reach IPv4 sites. Devices that only speak IPv4 cannot, because RouterOS has no CLAT ([requirements C1](requirements.md#clat)).
 
 | Network | What it does | Source |
 |---|---|---|
@@ -13,7 +13,7 @@ On these networks, a MikroTik router gets an IPv6-only connection. Phones and re
 
 Reports from MikroTik users on these networks:
 
-- A Chateau 5G R17 on T-Mobile US gives no IPv4 to an average user. Its owner gets by with an L2TP VPN ([post 32](https://forum.mikrotik.com/t/feature-request-464xlat/263487/32), [post 39](https://forum.mikrotik.com/t/feature-request-464xlat/263487/39)).
+- A Chateau 5G R17 on a T-Mobile US MVNO (Calyx) gives no IPv4 to an average user. Its owner gets by with an L2TP VPN, and notes that the earlier R16 model does get IPv4 on T-Mobile ([post 32](https://forum.mikrotik.com/t/feature-request-464xlat/263487/32), [post 39](https://forum.mikrotik.com/t/feature-request-464xlat/263487/39)).
 - Behind a Chateau 5G R17 ax on Deutsche Telekom 5G SA, IPv4-only devices get no IPv4. Its owner tunnels IPv4 over WireGuard to a rented server ([post 24](https://forum.mikrotik.com/t/feature-request-464xlat/263487/24)).
 
 ## MikroTik hardware and the container workaround

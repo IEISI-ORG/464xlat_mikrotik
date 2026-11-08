@@ -14,7 +14,7 @@ Why now: draft-ietf-v6ops-claton is approved by the IESG and in the RFC Editor q
 
 RouterOS already sends PREF64 (7.8) and handles DHCP option 108 (7.25), but it cannot translate between IPv4 and IPv6. Containers do not run on MIPS or TILE devices.
 
-The requirements and their status in RouterOS 7.25.1 are listed here, with IDs C1 to C10, P1 to P4 and D1 to D3:
+The requirements and their status in RouterOS 7.25.1 are listed here, with IDs C1 to C10, N1 to N6, P1 to P4 and D1 to D3:
 https://github.com/IEISI-ORG/464xlat_mikrotik/blob/main/docs/requirements.md
 
 My network:

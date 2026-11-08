@@ -1,6 +1,6 @@
 # What "done" looks like
 
-These are behaviours a user could observe on a RouterOS device once 464XLAT is in place. They describe results, not configuration syntax. How MikroTik exposes the settings is MikroTik's choice. Requirement IDs refer to [requirements.md](requirements.md).
+These are behaviours a user could observe on a RouterOS device once 464XLAT is in place. They describe what a user sees. How MikroTik exposes the settings is MikroTik's choice. Requirement IDs refer to [requirements.md](requirements.md).
 
 ## CLAT
 
@@ -21,8 +21,8 @@ These are behaviours a user could observe on a RouterOS device once 464XLAT is i
 2. The PLAT works with the well-known prefix 64:ff9b::/96 and with a network-specific prefix that the administrator chooses ([P3](requirements.md#plat)).
 3. Two IPv6 hosts behind the same PLAT can reach each other through it ([P2](requirements.md#plat)).
 4. The prefix in use is advertised to hosts with PREF64 ([P4](requirements.md#plat)).
-5. The same feature runs on a hEX and on a CCR, and throughput rises with the hardware.
-6. Firewall rules and packet marks apply to translated traffic in a single pass.
+5. The same feature runs on a hEX and on a CCR, and throughput rises with the hardware (this repo's request).
+6. Firewall rules and packet marks apply to translated traffic in a single pass (this repo's request; the container workaround loses marks, see [who is affected](who-is-affected.md#mikrotik-hardware-and-the-container-workaround)).
 
 ## DNS64 (optional)
 

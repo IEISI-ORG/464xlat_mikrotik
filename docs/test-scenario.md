@@ -2,7 +2,7 @@
 
 This is the test I recommend until upstream providers deploy a PLAT. It needs no help from the ISP. Any MikroTik owner with a public IPv4 address can run it once RouterOS has a PLAT.
 
-This page is a specification. RouterOS cannot run it yet. The current baseline is my own network, measured on a dual-stack MikroTik: about 80% of traffic is native IPv6 on average, up from 67%, with peaks beyond 90%. Above 90% is reached once the IPv4-only devices are excluded ([Setting Up Akvorado, Six Months On](https://medium.com/@terrysweetser_90287/setting-up-akvorado-six-months-on-4565b46dfc84)).
+This page is a specification. RouterOS cannot run it yet. The current baseline is my own network, measured on a dual-stack MikroTik: about 80% of traffic is native IPv6 on average, up from 67%, with peaks beyond 90%. The remainder is "four cameras and a caching proxy" (my ISP's), and excluding that floor the ratio holds above 90% ([Setting Up Akvorado, Six Months On](https://medium.com/@terrysweetser_90287/setting-up-akvorado-six-months-on-4565b46dfc84)).
 
 Requirement IDs refer to [requirements.md](requirements.md).
 
